@@ -1,69 +1,170 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body{
+
+margin:0;
+font-family:Arial;
+
+background:linear-gradient(130deg,#fff3a0,#ffe066,#fff);
+
+text-align:center;
+
 }
 
-body {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+.title{
+
+margin-top:10px;
+
+font-size:32px;
+
 }
 
-header, footer {
-    background-color: #12264B;
-    color: white;
-    padding: 20px;
-    text-align: center;
+.top{
+
+font-size:18px;
+
+margin-bottom:10px;
+
 }
 
-ul {
-    display: flex;
-    justify-content: center;
-    list-style: none;
+.game{
+
+display:flex;
+
+justify-content:center;
+
+gap:20px;
+
+padding:10px;
+
+flex-wrap:wrap;
+
 }
 
-li {
-    margin: 0 15px;
+.panel{
+
+width:260px;
+
+background:white;
+
+border-radius:12px;
+
+padding:15px;
+
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+
 }
 
-a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+.panel h2{
+
+margin-top:5px;
+
 }
 
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(270deg, red, blue, green, #b59b00);
-    background-size: 400% 400%;
-    animation: wave 12s ease infinite;
+button{
+
+width:100%;
+
+padding:10px;
+
+margin:5px 0;
+
+border:none;
+
+border-radius:8px;
+
+background:linear-gradient(#ffd84d,#ffc107);
+
+cursor:pointer;
+
+font-size:14px;
+
+transition:.15s;
+
 }
 
-article {
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 600px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+button:hover{
+
+transform:scale(1.05);
+
+box-shadow:0 5px 10px rgba(0,0,0,.2);
+
 }
 
-h2 {
-    margin-bottom: 20px;
+.rebirthBtn{
+
+background:linear-gradient(#ff9a00,#ff4d00);
+
+color:white;
+
+font-weight:bold;
+
 }
 
-p {
-    margin-bottom: 10px;
-    line-height: 1.5;
+.eggArea{
+
+width:220px;
+
+background:white;
+
+border-radius:12px;
+
+padding:15px;
+
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+
 }
 
-@keyframes wave {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+#egg{
+
+font-size:140px;
+
+cursor:pointer;
+
+transition:.1s;
+
+user-select:none;
+
+}
+
+#egg:active{
+
+transform:scale(.9);
+
+}
+
+#achievementPopup{
+
+position:fixed;
+
+top:20px;
+
+right:20px;
+
+background:#222;
+
+color:white;
+
+padding:10px 15px;
+
+border-radius:10px;
+
+display:none;
+
+}
+
+@media (max-width:700px){
+
+.game{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.panel{
+
+width:90%;
+
+}
+
 }
