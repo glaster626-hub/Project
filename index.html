@@ -1,64 +1,79 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-  <link rel="stylesheet" href="style.css">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Platform Web Design</title>
-  <style>
-    .video-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      padding: 20px;
-    }
 
-    .video-container iframe {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      height: auto;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    @media (max-width: 600px) {
-      .video-container {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<title>Egg Clicker</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-  <header>
-    <nav>
-      <ul>
-        <li><a href="">1 Этап</a></li>
-        <li><a href="">2 Этап</a></li>
-        <li><a href="https://online.sberbank.ru/">Поддержка</a></li>
-        <li><a href="https://podari-zhizn.ru/ru/donate">Пожертвование</a></li>
-      </ul>
-    </nav>
-  </header>
+<h1 class="title">🥚 Egg Clicker</h1>
 
-  <main>
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/JKlTjCQa_eY?si=tLPdSuWXnB6ma8ru" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/mFNTtkdKM8s?si=2Oc7thgJqhiiTWAK" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/BFdrxfAXzsg?si=cVw7-qjn0dutoxdU" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/ICY-l3W_lDc?si=01JeP-HD5rRZ9_Q_" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/-UvY9_EOK30?si=_xlxl_N5znUPTcL3" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/LUeTAx0R6Vk?si=gBm8L0opVtzLjmtc" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/ml6Pu7wpJU0?si=vuvtkU9Mj5dWBMSu" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/DGYAoXHFJOE?si=OlRpgprbXf7ThMrR" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/rc80VdpsK8M?si=XRBCZ3ZUb6SOgkBm" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/0YZJngL1q38?si=TTHCOIh1xqpOyfs2" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </main>
+<div class="top">
 
-  <footer>
-    <a href=""><strong>© 2026 Платформа ХЗ</strong></a>
-  </footer>
+Яиц: <span id="eggs">0</span>
+
+|
+
+сек: <span id="eps">0</span>
+
+|
+
+Перерождения: <span id="rebirth">0</span>
+
+</div>
+
+<div class="game">
+
+<div class="eggArea">
+
+<div id="egg">🥚</div>
+
+<p>Клик: <span id="clickPower">1</span></p>
+
+</div>
+
+
+<div class="panel">
+
+<h2>🏭 Постройки</h2>
+
+<div id="buildings"></div>
+
+<h2>⚡ Улучшения</h2>
+
+<div id="upgrades"></div>
+
+<h2>🔥 Перерождение</h2>
+
+<button onclick="doRebirth()" class="rebirthBtn">
+
+Переродиться
+
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<h2>🏆 Достижения</h2>
+
+<div id="achievements"></div>
+
+</div>
+
+</div>
+
+<div id="achievementPopup"></div>
+
+<script src="script.js"></script>
+
 </body>
-
 </html>
