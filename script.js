@@ -232,4 +232,57 @@ update()
 
 }
 
+function save(){
+
+const data={
+
+eggs,
+clickPower,
+multiplier,
+rebirth,
+buildings,
+upgrades,
+achievements
+
+}
+
+localStorage.setItem("eggClickerSave",JSON.stringify(data))
+
+}
+
+function load(){
+
+const data=JSON.parse(localStorage.getItem("eggClickerSave"))
+
+if(!data)return
+
+eggs=data.eggs
+clickPower=data.clickPower
+multiplier=data.multiplier
+rebirth=data.rebirth
+
+data.buildings.forEach((b,i)=>{
+
+buildings[i].count=b.count
+
+})
+
+data.upgrades.forEach((u,i)=>{
+
+upgrades[i].bought=u.bought
+
+})
+
+data.achievements.forEach((a,i)=>{
+
+achievements[i].done=a.done
+
+})
+
+}
+
+setInterval(save,3000)
+
+load()
+
 update()
