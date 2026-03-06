@@ -1,170 +1,92 @@
 body{
 
-margin:0;
+background:linear-gradient(135deg,#1e1e2f,#0f3460);
 font-family:Arial;
-
-background:linear-gradient(130deg,#fff3a0,#ffe066,#fff);
-
 text-align:center;
+color:white;
 
 }
 
 .title{
 
-margin-top:10px;
-
-font-size:32px;
-
-}
-
-.top{
-
-font-size:18px;
-
-margin-bottom:10px;
+font-size:40px;
+margin-top:30px;
 
 }
 
 .game{
 
-display:flex;
+margin-top:40px;
 
-justify-content:center;
+}
 
-gap:20px;
+.stats{
 
-padding:10px;
+font-size:22px;
+margin-bottom:20px;
 
-flex-wrap:wrap;
+}
+
+.clickBtn{
+
+font-size:40px;
+padding:40px 80px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+background:#00ff99;
+color:black;
+transition:0.2s;
+
+}
+
+.clickBtn:hover{
+
+transform:scale(1.1);
+
+}
+
+.buttons{
+
+margin-top:30px;
+
+}
+
+.buttons button{
+
+margin:10px;
+padding:10px 20px;
+font-size:16px;
+border:none;
+border-radius:10px;
+cursor:pointer;
 
 }
 
 .panel{
-
-width:260px;
-
-background:white;
-
-border-radius:12px;
-
-padding:15px;
-
-box-shadow:0 10px 20px rgba(0,0,0,0.15);
-
-}
-
-.panel h2{
-
-margin-top:5px;
-
-}
-
-button{
-
-width:100%;
-
-padding:10px;
-
-margin:5px 0;
-
-border:none;
-
-border-radius:8px;
-
-background:linear-gradient(#ffd84d,#ffc107);
-
-cursor:pointer;
-
-font-size:14px;
-
-transition:.15s;
-
-}
-
-button:hover{
-
-transform:scale(1.05);
-
-box-shadow:0 5px 10px rgba(0,0,0,.2);
-
-}
-
-.rebirthBtn{
-
-background:linear-gradient(#ff9a00,#ff4d00);
-
-color:white;
-
-font-weight:bold;
-
-}
-
-.eggArea{
-
-width:220px;
-
-background:white;
-
-border-radius:12px;
-
-padding:15px;
-
-box-shadow:0 10px 20px rgba(0,0,0,0.15);
-
-}
-
-#egg{
-
-font-size:140px;
-
-cursor:pointer;
-
-transition:.1s;
-
-user-select:none;
-
-}
-
-#egg:active{
-
-transform:scale(.9);
-
-}
-
-#achievementPopup{
-
-position:fixed;
-
-top:20px;
-
-right:20px;
-
-background:#222;
-
-color:white;
-
-padding:10px 15px;
-
-border-radius:10px;
 
 display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#222;
+padding:40px;
+border-radius:20px;
 
 }
 
-@media (max-width:700px){
-
-.game{
-
-flex-direction:column;
-
-align-items:center;
-
+.red{
+background:red;
+color:white;
 }
 
-.panel{
-
-width:90%;
-
+.blue{
+background:blue;
+color:white;
 }
 
+.gold{
+background:gold;
+color:black;
 }
