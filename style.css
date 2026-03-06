@@ -1,92 +1,64 @@
-body{
-
-background:linear-gradient(135deg,#1e1e2f,#0f3460);
-font-family:Arial;
-text-align:center;
-color:white;
-
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #f5f0e1, #cce7ff);
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
-.title{
-
-font-size:40px;
-margin-top:30px;
-
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
 }
 
-.game{
-
-margin-top:40px;
-
+h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
 }
 
-.stats{
-
-font-size:22px;
-margin-bottom:20px;
-
+.stats p {
+    font-size: 1.2em;
+    margin: 5px;
 }
 
-.clickBtn{
-
-font-size:40px;
-padding:40px 80px;
-border:none;
-border-radius:20px;
-cursor:pointer;
-background:#00ff99;
-color:black;
-transition:0.2s;
-
+.egg-container {
+    margin: 30px 0;
 }
 
-.clickBtn:hover{
-
-transform:scale(1.1);
-
+#egg {
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
 }
 
-.buttons{
-
-margin-top:30px;
-
+#egg:active {
+    transform: scale(0.95);
 }
 
-.buttons button{
-
-margin:10px;
-padding:10px 20px;
-font-size:16px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-
+.upgrades, .achievements {
+    margin-top: 20px;
 }
 
-.panel{
-
-display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:#222;
-padding:40px;
-border-radius:20px;
-
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    background-color: #ffcc00;
+    transition: background 0.3s;
 }
 
-.red{
-background:red;
-color:white;
+button:hover {
+    background-color: #ffaa00;
 }
 
-.blue{
-background:blue;
-color:white;
+.upgrade-item {
+    margin: 5px;
 }
 
-.gold{
-background:gold;
-color:black;
+.achievement-item {
+    list-style: none;
+    margin: 3px 0;
 }
