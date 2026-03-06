@@ -1,107 +1,54 @@
-body{
-font-family:Arial;
-margin:0;
-background:linear-gradient(140deg,#fff7cc,#ffffff);
-text-align:center;
-}
+#center{
 
-h1{
-margin:10px;
-font-size:26px;
-}
-
-#top{
-font-size:18px;
-padding:5px;
-}
-
-#game{
 display:flex;
+flex-direction:column;
+align-items:center;
 justify-content:center;
-gap:20px;
-padding:10px;
+
+margin-top:40px;
+
 }
 
 #egg{
-font-size:120px;
+
+font-size:200px;
+
 cursor:pointer;
-user-select:none;
+
 transition:transform .1s;
+
 }
 
 #egg:active{
+
 transform:scale(.9);
+
 }
 
-.crack{
-animation:crack .25s;
+.clickText{
+
+font-size:20px;
+margin-top:10px;
+
 }
 
-@keyframes crack{
-0%{transform:rotate(0)}
-25%{transform:rotate(-10deg)}
-50%{transform:rotate(10deg)}
-75%{transform:rotate(-5deg)}
-100%{transform:rotate(0)}
-}
 
-.panel{
-width:260px;
-background:white;
-border-radius:10px;
-padding:10px;
-box-shadow:0 0 10px rgba(0,0,0,.15);
-max-height:60vh;
-overflow:auto;
-text-align:left;
-}
+#bottom{
 
-button{
-width:100%;
-margin:4px 0;
-padding:10px;
-border:none;
-border-radius:6px;
-background:#ffd84d;
-font-size:14px;
-}
+margin-top:40px;
 
-button:active{
-background:#ffc107;
-}
+background:#ffffffaa;
 
-#golden{
-position:absolute;
-font-size:45px;
-display:none;
-cursor:pointer;
-animation:fall 5s linear;
-}
+padding:20px;
 
-@keyframes fall{
-0%{top:-80px}
-100%{top:100vh}
-}
+border-radius:15px;
 
-@media (max-width:700px){
-
-#game{
-flex-direction:column;
-align-items:center;
-}
-
-.panel{
 width:90%;
-max-height:none;
-}
+max-width:900px;
 
-#egg{
-font-size:150px;
-}
+margin-left:auto;
+margin-right:auto;
 
-button{
-font-size:16px;
-padding:12px;
-}
+box-shadow:0 0 15px rgba(0,0,0,.2);
 
 }
