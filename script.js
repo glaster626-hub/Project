@@ -1,231 +1,109 @@
-let eggs=0
-let clickPower=1
-let multiplier=1
-let rebirth=0
+// Начальные значения
+let eggs = parseInt(localStorage.getItem('eggs')) || 0;
+let clicks = parseInt(localStorage.getItem('clicks')) || 0;
+let rebirths = parseInt(localStorage.getItem('rebirths')) || 0;
+let clickPower = 1 + rebirths * 0.1; // +10% за каждое перерождение
 
-const eggsEl=document.getElementById("eggs")
-const epsEl=document.getElementById("eps")
-const clickEl=document.getElementById("clickPower")
-const rebirthEl=document.getElementById("rebirth")
-const egg=document.getElementById("egg")
+const eggCountEl = document.getElementById('eggCount');
+const clickCountEl = document.getElementById('clickCount');
+const rebirthCountEl = document.getElementById('rebirthCount');
+const eggEl = document.getElementById('egg');
+const upgradeListEl = document.getElementById('upgradeList');
+const achievementListEl = document.getElementById('achievementList');
+const rebirthBtn = document.getElementById('rebirthBtn');
 
-const buildEl=document.getElementById("buildings")
-const upgradeEl=document.getElementById("upgrades")
-const achEl=document.getElementById("achievements")
-const popup=document.getElementById("achievementPopup")
-const rebirthBtn=document.getElementById("rebirthBtn")
+// Апгрейды (пример)
+const upgrades = [
+    {name: "Click +1", cost: 50, power: 1, owned: 0},
+    {name: "Click +5", cost: 500, power: 5, owned: 0},
+    {name: "Auto Egg +1/sec", cost: 200, power: 1, owned: 0, passive: true}
+];
 
-const buildings=[
-{name:"🐔 Курица",base:15,power:.1,count:0},
-{name:"🐣 Инкубатор",base:100,power:1,count:0},
-{name:"🏭 Ферма",base:500,power:5,count:0},
-{name:"🏢 Фабрика",base:2000,power:15,count:0},
-{name:"🧬 Генлаб",base:10000,power:50,count:0}
-]
+// Достижения
+const achievements = [
+    {name: "First Click", achieved: false, condition: ()=>clicks>=1},
+    {name: "100 Clicks", achieved: false, condition: ()=>clicks>=100},
+    {name: "1,000 Eggs", achieved: false, condition: ()=>eggs>=1000}
+];
 
-const upgrades=[
-{name:"Сильный клик",cost:100,apply:()=>clickPower+=1},
-{name:"Железные пальцы",cost:500,apply:()=>clickPower+=2},
-{name:"Супер клик",cost:2000,apply:()=>clickPower+=5},
-{name:"Мега клик",cost:10000,apply:()=>clickPower+=20},
-{name:"Яичная экономика",cost:5000,apply:()=>multiplier*=2}
-]
+// Обновление интерфейса
+function updateUI() {
+    eggCountEl.textContent = Math.floor(eggs);
+    clickCountEl.textContent = clicks;
+    rebirthCountEl.textContent = rebirths;
 
-const achievements=[
-{name:"Новичок",goal:1000,done:false},
-{name:"Фермер",goal:100000,done:false},
-{name:"Магнат",goal:1000000,done:false},
-{name:"Яичный бог",goal:1000000000,done:false},
-{name:"Первое перерождение",rebirth:1,done:false},
-{name:"Мастер",rebirth:3,done:false}
-]
+    // Апгрейды
+    upgradeListEl.innerHTML = '';
+    upgrades.forEach((u, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = `${u.name} (${u.cost} eggs)`;
+        btn.className = 'upgrade-item';
+        btn.disabled = eggs < u.cost;
+        btn.onclick = () => buyUpgrade(i);
+        upgradeListEl.appendChild(btn);
+    });
 
-function buildingCost(b){
-return Math.floor(b.base*Math.pow(1.15,b.count))
+    // Достижения
+    achievementListEl.innerHTML = '';
+    achievements.forEach(a => {
+        if (!a.achieved && a.condition()) {
+            a.achieved = true;
+            alert(`Achievement unlocked: ${a.name}`);
+        }
+        if (a.achieved) {
+            const li = document.createElement('li');
+            li.textContent = a.name;
+            li.className = 'achievement-item';
+            achievementListEl.appendChild(li);
+        }
+    });
+
+    saveGame();
 }
 
-function calcEPS(){
-let total=0
-buildings.forEach(b=>total+=b.count*b.power)
-return total*multiplier
+// Клик по яйцу
+eggEl.addEventListener('click', () => {
+    eggs += clickPower;
+    clicks++;
+    updateUI();
+});
+
+// Покупка апгрейда
+function buyUpgrade(index) {
+    const u = upgrades[index];
+    if (eggs >= u.cost) {
+        eggs -= u.cost;
+        u.owned++;
+        if (!u.passive) {
+            clickPower += u.power;
+        } else {
+            setInterval(()=>{eggs += u.power; updateUI();}, 1000);
+        }
+        updateUI();
+    }
 }
 
-function showAch(text){
-popup.innerText="🏆 "+text
-popup.style.display="block"
-setTimeout(()=>popup.style.display="none",3000)
+// Перерождение
+rebirthBtn.addEventListener('click', () => {
+    if (eggs >= 5000000) { // 5M минимум для примера
+        rebirths++;
+        eggs = 0;
+        clicks = 0;
+        clickPower = 1 + rebirths * 0.1;
+        upgrades.forEach(u => u.owned = 0);
+        alert(`Rebirth complete! Click power +${(rebirths*10).toFixed(0)}%`);
+        updateUI();
+    } else {
+        alert('Not enough eggs to rebirth!');
+    }
+});
+
+// Сохранение
+function saveGame() {
+    localStorage.setItem('eggs', eggs);
+    localStorage.setItem('clicks', clicks);
+    localStorage.setItem('rebirths', rebirths);
 }
 
-function checkAch(){
-achievements.forEach(a=>{
-if(a.done)return
-
-if(a.goal && eggs>=a.goal){
-a.done=true
-showAch(a.name)
-}
-
-if(a.rebirth && rebirth>=a.rebirth){
-a.done=true
-showAch(a.name)
-}
-})
-}
-
-function update(){
-
-eggsEl.textContent=Math.floor(eggs)
-epsEl.textContent=calcEPS().toFixed(1)
-clickEl.textContent=(clickPower*multiplier).toFixed(1)
-rebirthEl.textContent=rebirth
-
-buildEl.innerHTML=""
-
-buildings.forEach(b=>{
-
-let btn=document.createElement("button")
-let cost=buildingCost(b)
-
-btn.textContent=b.name+" ("+b.count+") - "+cost
-
-btn.onclick=()=>{
-if(eggs>=cost){
-eggs-=cost
-b.count++
-update()
-}
-}
-
-buildEl.appendChild(btn)
-
-})
-
-upgradeEl.innerHTML=""
-
-upgrades.forEach(u=>{
-
-if(!u.bought){
-
-let btn=document.createElement("button")
-
-btn.textContent=u.name+" - "+u.cost
-
-btn.onclick=()=>{
-
-if(eggs>=u.cost){
-eggs-=u.cost
-u.apply()
-u.bought=true
-update()
-}
-
-}
-
-upgradeEl.appendChild(btn)
-
-}
-
-})
-
-achEl.innerHTML=""
-
-achievements.forEach(a=>{
-
-let div=document.createElement("div")
-div.textContent=(a.done?"✅ ":"⬜ ")+a.name
-achEl.appendChild(div)
-
-})
-
-checkAch()
-
-const cost=[5000000,10000000,15000000]
-
-if(rebirth<3){
-rebirthBtn.innerText="Переродиться ("+cost[rebirth]+")"
-}else{
-rebirthBtn.innerText="Макс перерождений"
-}
-
-}
-
-egg.onclick=()=>{
-eggs+=clickPower*multiplier
-update()
-}
-
-setInterval(()=>{
-eggs+=calcEPS()
-update()
-},1000)
-
-function doRebirth(){
-
-const cost=[5000000,10000000,15000000]
-
-if(rebirth>=3)return
-
-let price=cost[rebirth]
-
-if(eggs<price){
-alert("Нужно "+price+" яиц")
-return
-}
-
-rebirth++
-
-clickPower*=1.1
-
-eggs=0
-
-buildings.forEach(b=>b.count=0)
-
-update()
-
-}
-
-function save(){
-
-const data={
-eggs,
-clickPower,
-multiplier,
-rebirth,
-buildings,
-upgrades,
-achievements
-}
-
-localStorage.setItem("eggClickerSave",JSON.stringify(data))
-
-}
-
-function load(){
-
-const data=JSON.parse(localStorage.getItem("eggClickerSave"))
-
-if(!data)return
-
-eggs=data.eggs
-clickPower=data.clickPower
-multiplier=data.multiplier
-rebirth=data.rebirth
-
-data.buildings.forEach((b,i)=>{
-buildings[i].count=b.count
-})
-
-data.upgrades.forEach((u,i)=>{
-upgrades[i].bought=u.bought
-})
-
-data.achievements.forEach((a,i)=>{
-achievements[i].done=a.done
-})
-
-}
-
-setInterval(save,3000)
-
-load()
-update()
+// Начальное обновление UI
+updateUI();
