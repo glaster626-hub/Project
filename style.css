@@ -1,54 +1,58 @@
-#center{
+/* центр яйца */
 
+#center{
 display:flex;
 flex-direction:column;
-align-items:center;
 justify-content:center;
-
-margin-top:40px;
-
+align-items:center;
+height:50vh;
 }
 
+/* большое яйцо */
+
 #egg{
-
-font-size:200px;
-
+font-size:180px;
 cursor:pointer;
-
 transition:transform .1s;
-
 }
 
 #egg:active{
-
 transform:scale(.9);
-
 }
 
-.clickText{
-
-font-size:20px;
-margin-top:10px;
-
-}
-
+/* нижняя панель */
 
 #bottom{
 
-margin-top:40px;
+position:absolute;
+bottom:0;
 
-background:#ffffffaa;
+width:100%;
 
-padding:20px;
+background:white;
 
-border-radius:15px;
+padding:15px;
 
-width:90%;
-max-width:900px;
+box-shadow:0 -5px 20px rgba(0,0,0,.15);
 
-margin-left:auto;
-margin-right:auto;
+}
 
-box-shadow:0 0 15px rgba(0,0,0,.2);
+/* кнопки по центру */
 
+#buildings,
+#upgrades{
+
+display:flex;
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+gap:6px;
+
+}
+
+button{
+width:auto;
+padding:10px 15px;
 }
