@@ -1,34 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Egg Clicker</title>
-    <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Egg Clicker</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-    <div class="container">
-        <h1>Egg Clicker</h1>
-        <div class="stats">
-            <p>Eggs: <span id="eggCount">0</span></p>
-            <p>Clicks: <span id="clickCount">0</span></p>
-            <p>Rebirths: <span id="rebirthCount">0</span></p>
-        </div>
-        <div class="egg-container">
-            <img src="egg.png" alt="Egg" id="egg">
-        </div>
-        <div class="upgrades">
-            <h2>Upgrades</h2>
-            <div id="upgradeList"></div>
-        </div>
-        <div class="rebirth">
-            <button id="rebirthBtn">Rebirth</button>
-        </div>
-        <div class="achievements">
-            <h2>Achievements</h2>
-            <ul id="achievementList"></ul>
-        </div>
-    </div>
-    <script src="script.js"></script>
+
+<h1>🥚 Egg Clicker</h1>
+
+<div id="top">
+Яиц: <span id="eggs">0</span> |
+сек: <span id="eps">0</span> |
+Перерождений: <span id="rebirth">0</span>
+</div>
+
+<div id="game">
+
+<div>
+<div id="egg">🥚</div>
+<p>Клик: <span id="clickPower">1</span></p>
+</div>
+
+<div class="panel">
+
+<h3>Постройки</h3>
+<div id="buildings"></div>
+
+<h3>Улучшения</h3>
+<div id="upgrades"></div>
+
+<h3>Перерождение</h3>
+<button onclick="doRebirth()">Переродиться</button>
+<p id="rebirthCost"></p>
+
+</div>
+
+</div>
+
+<div id="golden">🌟</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
