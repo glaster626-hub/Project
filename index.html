@@ -1,175 +1,34 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Super Clicker</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egg Clicker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<h1 class="title">Eggcliker</h1>
-
-<div class="game">
-
-<div class="stats">
-<p>Клики: <span id="clicks">0</span></p>
-<p>Перерождения: <span id="rebirths">0</span></p>
-</div>
-
-<button id="clickBtn" class="clickBtn">КЛИК</button>
-
-<div class="buttons">
-<button onclick="rebirth()">Перерождение (1000)</button>
-<button onclick="openShop()">Магазин скинов</button>
-<button onclick="openAch()">Достижения</button>
-</div>
-
-</div>
-
-<div id="shop" class="panel">
-<h2>Магазин скинов</h2>
-
-<button onclick="buySkin('red',500)">Красный (500)</button>
-<button onclick="buySkin('blue',1500)">Синий (1500)</button>
-<button onclick="buySkin('gold',5000)">Золотой (5000)</button>
-
-<button onclick="closeShop()">Закрыть</button>
-</div>
-
-<div id="ach" class="panel">
-<h2>Достижения</h2>
-
-<p id="a1">❌ Первый клик</p>
-<p id="a2">❌ 100 кликов</p>
-<p id="a3">❌ 1 перерождение</p>
-
-<button onclick="closeAch()">Закрыть</button>
-</div>
-
-<script>
-
-let clicks = 0
-let rebirths = 0
-let skin = "default"
-
-load()
-
-function click(){
-clicks += 1 + rebirths
-save()
-update()
-checkAch()
-}
-
-document.getElementById("clickBtn").onclick = click
-
-function rebirth(){
-
-if(clicks >= 1000){
-
-clicks = 0
-rebirths++
-
-save()
-update()
-checkAch()
-
-}
-
-}
-
-function buySkin(name,price){
-
-if(clicks >= price){
-
-clicks -= price
-skin = name
-
-applySkin()
-
-save()
-update()
-
-}
-
-}
-
-function applySkin(){
-
-let btn = document.getElementById("clickBtn")
-
-btn.className="clickBtn "+skin
-
-}
-
-function openShop(){
-document.getElementById("shop").style.display="block"
-}
-
-function closeShop(){
-document.getElementById("shop").style.display="none"
-}
-
-function openAch(){
-document.getElementById("ach").style.display="block"
-}
-
-function closeAch(){
-document.getElementById("ach").style.display="none"
-}
-
-function checkAch(){
-
-if(clicks>0){
-document.getElementById("a1").innerText="✅ Первый клик"
-}
-
-if(clicks>=100){
-document.getElementById("a2").innerText="✅ 100 кликов"
-}
-
-if(rebirths>=1){
-document.getElementById("a3").innerText="✅ 1 перерождение"
-}
-
-}
-
-function update(){
-
-document.getElementById("clicks").innerText=clicks
-document.getElementById("rebirths").innerText=rebirths
-
-applySkin()
-
-}
-
-function save(){
-
-localStorage.setItem("clicks",clicks)
-localStorage.setItem("rebirths",rebirths)
-localStorage.setItem("skin",skin)
-
-}
-
-function load(){
-
-let c = localStorage.getItem("clicks")
-let r = localStorage.getItem("rebirths")
-let s = localStorage.getItem("skin")
-
-if(c)clicks=parseInt(c)
-if(r)rebirths=parseInt(r)
-if(s)skin=s
-
-update()
-checkAch()
-
-}
-
-update()
-
-</script>
-
+    <div class="container">
+        <h1>Egg Clicker</h1>
+        <div class="stats">
+            <p>Eggs: <span id="eggCount">0</span></p>
+            <p>Clicks: <span id="clickCount">0</span></p>
+            <p>Rebirths: <span id="rebirthCount">0</span></p>
+        </div>
+        <div class="egg-container">
+            <img src="egg.png" alt="Egg" id="egg">
+        </div>
+        <div class="upgrades">
+            <h2>Upgrades</h2>
+            <div id="upgradeList"></div>
+        </div>
+        <div class="rebirth">
+            <button id="rebirthBtn">Rebirth</button>
+        </div>
+        <div class="achievements">
+            <h2>Achievements</h2>
+            <ul id="achievementList"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
