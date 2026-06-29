@@ -1,41 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Для самой особенной</title>
+  <style>
+    :root {
+      --accent-color: #ff6b8b;
+      --accent-glow: #ff477e;
+      --bg-gradient: linear-gradient(135deg, #0b071e 0%, #160f33 50%, #25133e 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: #ffffff;
+      font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+      padding: 12px;
+    }
+
+    html {
+      height: -webkit-fill-available;
+    }
+
+    .space-background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 540px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      width: 100%;
+      background: rgba(20, 15, 38, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 107, 139, 0.3);
+      border-radius: 24px;
+      padding: 30px 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      transition: all 0.5s ease;
+    }
+
+    .card__title {
+      font-size: calc(1.3rem + 1vw);
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.3;
+      background: linear-gradient(45deg, #fff, #ffb3c1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .card__subtitle {
+      font-size: 0.95rem;
+      color: #c4bfe3;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .quiz-group {
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+    .quiz-group__label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--accent-color);
+      margin-bottom: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1.4;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 350px) {
+      .quiz-options {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+    }
+
+    .quiz-options__btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      color: #fff;
+      padding: 14px 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .quiz-options__btn:hover {
+      background: rgba(255, 107, 139, 0.1);
+      border-color: rgba(255, 107, 139, 0.4);
+    }
+
+    .quiz-options__btn.selected {
+      background: linear-gradient(135deg, var(--accent-color) 0%, #ff477e 100%);
+      border-color: transparent;
+      box-shadow: 0 5px 15px rgba(255, 107, 139, 0.3);
+    }
+
+    .card__action-btn {
+      width: 100%;
+      background: transparent;
+      border: 2px solid var(--accent-color);
+      border-radius: 14px;
+      color: #fff;
+      padding: 15px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .card__action-btn:hover {
+      background: var(--accent-color);
+      box-shadow: 0 0 20px rgba(255, 107, 139, 0.4);
+    }
+
+    .main-content {
+      display: none;
+      width: 100%;
+      text-align: center;
+      animation: super-appearance 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+
+    @keyframes super-appearance {
+      0% { opacity: 0; transform: scale(0.97) translateY(20px); filter: blur(5px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+    }
+
+    .heart-glow-wrapper {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 20px;
+      filter: drop-shadow(0 0 15px var(--accent-glow));
+      animation: deep-pulse 0.9s infinite alternate cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .heart-glow-wrapper svg {
+      width: 100%;
+      height: 100%;
+      fill: url(#heartGradient);
+    }
+
+    @keyframes deep-pulse {
+      0% { transform: scale(0.95); }
+      100% { transform: scale(1.08); }
+    }
+
+    .info-box {
+      background: rgba(15, 10, 32, 0.85);
+      border: 2px solid rgba(255, 107, 139, 0.4);
+      border-radius: 24px;
+      padding: 25px 18px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      text-align: left;
+    }
+
+    @media (min-width: 400px) {
+      .info-box {
+        padding: 35px 25px;
+      }
+    }
+
+    .info-box__header {
+      font-size: calc(1.5rem + 1vw);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 15px;
+      background: linear-gradient(45deg, #ff8fa3, #ff477e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .info-box__intro {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      color: #e5e1fa;
+      text-align: center;
+    }
+
+    .info-section {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 107, 139, 0.15);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 15px;
+    }
+
+    .info-section__title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ff8fa3;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .info-section__text {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #dcd7f7;
+    }
+
+    .info-box__footer {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: 30px 0 20px;
+      color: #e5e1fa;
+      text-align: center;
+      border-top: 1px solid rgba(255, 107, 139, 0.2);
+      padding-top: 20px;
+    }
+
+    .tg-container {
+      text-align: center;
+    }
+
+    .tg-button {
+      display: inline-block;
+      text-decoration: none;
+      background: linear-gradient(135deg, #00a8ff 0%, #0077ff 100%);
+      color: #fff;
+      padding: 16px 35px;
+      width: 100%;
+      max-width: 280px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 20px rgba(0, 119, 255, 0.3);
+      transition: all 0.25s ease;
+      text-align: center;
+    }
+
+    .tg-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(0, 119, 255, 0.5);
+    }
+
+    .shake-error {
+      animation: ultra-shake 0.4s ease;
+    }
+
+    @keyframes ultra-shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    .sparkle {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      animation: fly var(--d) cubic-bezier(0.1, 0.8, 0.25, 1) infinite;
+    }
+
+    .heart-particle {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      font-size: var(--s);
+      animation: fly var(--d) cubic-bezier(0.1, 0.8, 0.25, 1) infinite;
+    }
+
+    @keyframes fly {
+      0% { transform: translate(var(--sx), var(--sy)) scale(0); opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { transform: translate(var(--ex), var(--ey)) scale(var(--sc)); opacity: 0; }
+    }
+  </style>
+</head>
 <body>
 
-<h1>🥚 Egg Clicker</h1>
+  <svg style="width:0;height:0;position:absolute;">
+    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff8fa3" />
+      <stop offset="100%" stop-color="#ff2a74" />
+    </linearGradient>
+  </svg>
 
-<div id="top">
-Яиц: <span id="eggs">0</span> |
-сек: <span id="eps">0</span> |
-Перерождений: <span id="rebirth">0</span>
-</div>
+  <div class="space-background" id="spaceLayer"></div>
 
-<!-- ЦЕНТР -->
-<div id="center">
+  <div class="wrapper">
+    <div class="card" id="quizCard">
+      <div class="card__title">Проверка на совпадение</div>
+      <div class="card__subtitle">Ответь на два вопроса, чтобы открыть то, что скрыто внутри этого сайта.</div>
+      
+      <div class="quiz-group">
+        <span class="quiz-group__label">Вопрос 1: Где лучше всего проводить время?</span>
+        <div class="quiz-options">
+          <button class="quiz-options__btn" onclick="selectOption(this, 1, false)">В шумном ТЦ</button>
+          <button class="quiz-options__btn" onclick="selectOption(this, 1, true)">У классного бассейна</button>
+        </div>
+      </div>
 
-<div id="egg">🥚</div>
+      <div class="quiz-group">
+        <span class="quiz-group__label">Вопрос 2: Кто нарисовал сердце на открытке?</span>
+        <div class="quiz-options">
+          <button class="quiz-options__btn" onclick="selectOption(this, 2, true)">Кое-кто, кому ты нравишься</button>
+          <button class="quiz-options__btn" onclick="selectOption(this, 2, false)">Нейросеть полностью</button>
+        </div>
+      </div>
 
-<p>Клик: <span id="clickPower">1</span></p>
+      <button class="card__action-btn" onclick="verifyAnswers()">ОТКРЫТЬ ПОСЛАНИЕ</button>
+    </div>
 
-</div>
+    <div class="main-content" id="mainContent">
+      <div class="heart-glow-wrapper">
+        <svg viewBox="0 0 32 29.6">
+          <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+          c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+        </svg>
+      </div>
+      
+      <div class="info-box">
+        <div class="info-box__header">Info-box</div>
+        <p class="info-box__intro">Ого, ты реально угадала все ответы! Короче, я сделал этот сайт специально для тебя, чтобы сказать кое-что важное. Вот прям честно, как есть:</p>
+        
+        <div class="info-section">
+          <div class="info-section__title">✨ Ты капец какая веселая</div>
+          <div class="info-section__text">Когда ты стоишь рядом на перемене или просто что-то рассказываешь, у меня сразу поднимается настроение. С тобой вообще не скучно, ты очень крутая и позитивная, с тобой легко общаться.</div>
+        </div>
 
-<!-- НИЗ -->
-<div id="bottom">
+        <div class="info-section">
+          <div class="info-section__title">😊 Твоя улыбка</div>
+          <div class="info-section__text">У тебя просто нереально красивая улыбка. Я всегда очень радуюсь, когда ты смеешься над моими шутками. Твой смех — это вообще лучшее, что можно увидеть за весь день в школе.</div>
+        </div>
 
-<h3>Постройки</h3>
-<div id="buildings"></div>
+        <div class="info-section">
+          <div class="info-section__title">🧠 С тобой интересно</div>
+          <div class="info-section__text">Мне капец как нравится, как ты думаешь и чем увлекаешься. Мы всегда находим, о чем поболтать, и мне очень хочется узнать тебя еще лучше, общаться каждый день и делиться всякими мыслями.</div>
+        </div>
 
-<h3>Улучшения</h3>
-<div id="upgrades"></div>
+        <div class="info-section">
+          <div class="info-section__title">🤫 Про то, что нас шипперят</div>
+          <div class="info-section__text">Нас уже кучу раз пытались шипперить все вокруг. Сначала это было как-то странно, но потом я подумал... а ведь они правы! Мы реально очень круто смотримся вместе и подходим друг другу.</div>
+        </div>
 
-<h3>Перерождение</h3>
+        <div class="info-section">
+          <div class="info-section__title">❤️ Ты мне нравишься</div>
+          <div class="info-section__text">Если говорить вообще без шуток: ты мне очень сильно и по-настоящему нравишься. Я решил написать этот код и сделать сайт, чтобы сказать об этом как-то необычно. Ты классная, и я надеюсь, это взаимно.</div>
+        </div>
+        
+        <p class="info-box__footer">Если ты дочитала до сюда и сейчас улыбаешься, то я не зря старался! На обратной стороне открытки в твоем рюкзаке лежит мой тг. Давай общаться ближе? Жми на кнопку внизу и напиши мне!</p>
+        
+        <div class="tg-container">
+          <a href="https://t.me/Hhhhioyr" target="_blank" class="tg-button">НАПИСАТЬ МНЕ</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<button onclick="doRebirth()">Переродиться</button>
+  <script>
+    let q1Correct = false, q2Correct = false;
+    let q1Selected = false, q2Selected = false;
 
-<p id="rebirthCost"></p>
+    const spaceLayer = document.getElementById('spaceLayer');
+    for (let i = 0; i < 20; i++) {
+      const star = document.createElement('div');
+      star.style.position = 'absolute';
+      star.style.width = star.style.height = (1 + Math.random() * 1.5) + 'px';
+      star.style.background = '#fff';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.opacity = 0.3 + Math.random() * 0.5;
+      spaceLayer.appendChild(star);
+    }
 
-</div>
+    function selectOption(button, questionNum, isCorrect) {
+      const buttons = button.parentElement.querySelectorAll('.quiz-options__btn');
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      button.classList.add('selected');
 
-<div id="golden">🌟</div>
+      if (questionNum === 1) { q1Correct = isCorrect; q1Selected = true; }
+      else if (questionNum === 2) { q2Correct = isCorrect; q2Selected = true; }
+    }
 
-<script src="script.js"></script>
+    function verifyAnswers() {
+      const card = document.getElementById('quizCard');
+      const content = document.getElementById('mainContent');
 
+      if (!q1Selected || !q2Selected) { triggerError(card); return; }
+
+      if (q1Correct && q2Correct) {
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+          card.style.display = 'none';
+          content.style.display = 'block';
+          setInterval(spawnMagicParticle, 90);
+        }, 400);
+      } else {
+        triggerError(card);
+      }
+    }
+
+    function triggerError(element) {
+      element.classList.add('shake-error');
+      setTimeout(() => element.classList.remove('shake-error'), 400);
+    }
+
+    function spawnMagicParticle() {
+      const p = document.createElement('div');
+      const isHeart = Math.random() > 0.45;
+      
+      const startX = window.innerWidth / 2;
+      const startY = window.innerHeight * 0.3;
+      
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 80 + Math.random() * window.innerWidth * 0.5;
+      const endX = startX + Math.cos(angle) * distance;
+      const endY = startY + Math.sin(angle) * distance;
+      
+      const duration = 2 + Math.random() * 2;
+
+      p.style.setProperty('--sx', startX + 'px');
+      p.style.setProperty('--sy', startY + 'px');
+      p.style.setProperty('--ex', endX + 'px');
+      p.style.setProperty('--ey', endY + 'px');
+      p.style.setProperty('--d', duration + 's');
+      p.style.setProperty('--sc', 0.4 + Math.random() * 0.8);
+
+      if (isHeart) {
+        p.className = 'heart-particle';
+        p.innerText = Math.random() > 0.5 ? '💖' : '❤️';
+        p.style.setProperty('--s', (12 + Math.random() * 12) + 'px');
+      } else {
+        p.className = 'sparkle';
+        const size = 2 + Math.random() * 4;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.boxShadow = `0 0 ${size * 2}px #fff, 0 0 ${size * 4}px var(--accent-color)`;
+      }
+
+      spaceLayer.appendChild(p);
+      setTimeout(() => p.remove(), duration * 1000);
+    }
+  </script>
 </body>
+</html>
